@@ -1,1 +1,10 @@
 Learn System Design
+
+-> Java, Springboot and Docker Microservices
+-> Postgres Database
+-> Load Balancers and API Gateways to route requests
+-> Event Driven Communication - Kafka
+-> Real Time Communication - rest and grpc
+-> Aunthenticate Users and Secure APIs using bearer tokens
+-> Integration Tests
+-> Deployment to AWS using local stack and infrastructure as code
