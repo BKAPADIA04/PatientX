@@ -1,0 +1,13 @@
+### Create New Patient Endpoint
+POST http://localhost:4000/patients
+Content-Type: application/json
+
+{
+  "name": "Bhavya Kapadia",
+  "email": "r45@example.com",
+  "address": "Ananta Campus Google BLR",
+  "dateOfBirth": "2004-10-04",
+  "registeredDate": "2025-7-28"
+}
+
+###
