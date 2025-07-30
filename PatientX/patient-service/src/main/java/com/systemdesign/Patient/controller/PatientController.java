@@ -1,10 +1,13 @@
 package com.systemdesign.Patient.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,5 +38,12 @@ public class PatientController {
         PatientResponseDTO createdPatient = patientService.createPatient(patientRequestDTO);
         return ResponseEntity.status(201).body(createdPatient);
     }
-    
+
+    @PutMapping("/{patientId}")
+    public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable UUID patientId,
+        @RequestBody PatientRequestDTO patientRequestDTO) {
+        
+        PatientResponseDTO updatedPatient = patientService.updatePatient(patientId, patientRequestDTO);
+        return ResponseEntity.ok().body(updatedPatient);
+    }
 }
