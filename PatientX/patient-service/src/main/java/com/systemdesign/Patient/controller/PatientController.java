@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,5 +50,11 @@ public class PatientController {
         
         PatientResponseDTO updatedPatient = patientService.updatePatient(patientId, patientRequestDTO);
         return ResponseEntity.ok().body(updatedPatient);
+    }
+
+    @DeleteMapping("/{patientId}")
+    public ResponseEntity<Void> deletePatient(@PathVariable UUID patientId) {
+        patientService.deletePatient(patientId);
+        return ResponseEntity.noContent().build();
     }
 }
