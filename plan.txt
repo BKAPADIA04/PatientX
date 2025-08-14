@@ -8,3 +8,6 @@ Learn System Design
 -> Aunthenticate Users and Secure APIs using bearer tokens
 -> Integration Tests
 -> Deployment to AWS using local stack and infrastructure as code
+
+-> Use REST for public/external APIs (easy for clients, browsers, mobile apps).
+-> Use gRPC for internal microservices where you control both ends and need speed + streaming + strong typing.
