@@ -1,2 +1,5 @@
 -> Ports 
 -> 5433:5432 for Postgres
+-> 8080:8080 for patient-service
+
+docker-compose up --build                 
