@@ -74,6 +74,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
+		<finalName>patient-service</finalName>
 	</build>
 
 </project>

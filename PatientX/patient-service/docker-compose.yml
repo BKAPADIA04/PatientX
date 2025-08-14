@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: patient-service-db
+    environment:
+      POSTGRES_DB: patient_service_db
+      POSTGRES_USER: admin_name
+      POSTGRES_PASSWORD: your_password
+    ports:
+      - "5432:5432"
+    networks:
+      - internal-net
+
+  patient-service:
+    build: .
+    container_name: patient-service
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/patient_service_db
+      SPRING_DATASOURCE_USERNAME: admin_name
+      SPRING_DATASOURCE_PASSWORD: your_password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - internal-net
+
+networks:
+  internal-net:
+    driver: bridge
