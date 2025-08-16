@@ -1,5 +1,5 @@
 ### Update Patient Information
-PUT http://localhost:4000/patients/{patientId}
+PUT http://localhost:8080/patients/{patientId}
 Content-Type: application/json
 
 {

@@ -14,7 +14,7 @@ services:
       - internal-net
 
   patient-service:
-    build: .
+    build: ./patient-service
     container_name: patient-service
     depends_on:
       - postgres
@@ -25,6 +25,17 @@ services:
       SPRING_DATASOURCE_USERNAME: admin_name
       SPRING_DATASOURCE_PASSWORD: your_password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - internal-net
+
+  billing-service:
+    build: ./billing-service
+    container_name: billing-service
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8081"
+      - "9001:9001"
     networks:
       - internal-net
 
