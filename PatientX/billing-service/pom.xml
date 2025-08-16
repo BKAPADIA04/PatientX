@@ -92,6 +92,27 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
+			<plugin>
+				<groupId>org.xolstice.maven.plugins</groupId>
+				<artifactId>protobuf-maven-plugin</artifactId>
+				<version>0.6.1</version>
+				<configuration>
+					<protocArtifact>com.google.protobuf:protoc:3.21.12:exe:${os.detected.classifier}</protocArtifact>
+					<pluginId>grpc-java</pluginId>
+					<pluginArtifact>io.grpc:protoc-gen-grpc-java:1.51.0:exe:${os.detected.classifier}</pluginArtifact>
+				</configuration>
+				<executions>
+					<execution>
+					<id>compile-proto</id>
+					<goals>
+						<goal>compile</goal>
+						<goal>compile-custom</goal>
+					</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
 			<!-- PROTO -->
 			<plugin>
 				<groupId>org.xolstice.maven.plugins</groupId>
@@ -112,6 +133,20 @@
 				</executions>
 			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+				<source>17</source>
+				<target>17</target>
+				<generatedSourcesDirectory>${project.build.directory}/generated-sources/protobuf/java</generatedSourcesDirectory>
+				</configuration>
+			</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 
