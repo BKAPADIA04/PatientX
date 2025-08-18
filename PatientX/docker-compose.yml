@@ -25,6 +25,8 @@ services:
       SPRING_DATASOURCE_USERNAME: admin_name
       SPRING_DATASOURCE_PASSWORD: your_password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      BILLING_SERVICE_ADDRESS: billing-service
+      BILLING_SERVICE_GRPC_PORT: 9001
     networks:
       - internal-net
 
