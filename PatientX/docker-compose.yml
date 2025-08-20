@@ -62,6 +62,18 @@ services:
     networks:
       - internal-net
 
+  analytics-service:
+    build: ./analytics-service
+    container_name: analytics-service
+    depends_on:
+      - kafka
+    ports:
+      - "4002:4002"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    networks:
+      - internal-net
+
 networks:
   internal-net:
     driver: bridge
