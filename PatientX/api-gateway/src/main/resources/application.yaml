@@ -1,0 +1,26 @@
+server:
+  port: 4004
+spring:
+  cloud:
+    gateway:
+      routes:
+
+        ### REST Client : http://localhost:4004/api/patients
+        ### API Gateway : http://patient-service:8080/patients
+        ### Patient Service : /patients
+        - id: patient-service-route
+          uri: http://patient-service:8080
+          predicates:
+            - Path=/api/patients/**
+          filters:
+            - StripPrefix=1
+      
+        ### REST Client : http://localhost:4004/api-docs/patients
+        ### API Gateway : http://patient-service:8080/v3/api-docs
+        ### Patient Service : /v3/api-docs
+        - id: api-docs-patient-route
+          uri: http://patient-service:8080
+          predicates:
+            - Path=/api-docs/patients
+          filters:
+            - RewritePath=/api-docs/patients, /v3/api-docs
