@@ -13,6 +13,17 @@ services:
     networks:
       - internal-net
 
+  auth_service_db:
+    image: postgres:16
+    container_name: auth_service_db
+    environment:
+      POSTGRES_DB: auth_service_db
+      POSTGRES_USER: admin_name
+      POSTGRES_PASSWORD: your_password
+    ports:
+      - "5001:5432"
+    networks:
+      - internal-net
   kafka:
     image: bitnami/kafka:3.6
     container_name: kafka
