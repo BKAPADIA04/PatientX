@@ -2,6 +2,7 @@ package com.systemdesign.auth_service.controller;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,12 +13,13 @@ import com.systemdesign.auth_service.dto.LoginResponseDTO;
 import com.systemdesign.auth_service.service.AuthService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class AuthController {
 
     private final AuthService authService;
+    private static final Logger Logger = org.slf4j.LoggerFactory.getLogger(AuthController.class);
 
     public AuthController(AuthService authService) {
         this.authService = authService;
@@ -27,6 +29,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest) {
         // Logic to authenticate user and generate token
+        Logger.info("Login attempt for email: {}", loginRequest.getEmail());
         Optional <String> tokenOptional = authService.authenticate(loginRequest);
         if (tokenOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
