@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.systemdesign.auth_service.dto.LoginRequestDTO;
 import com.systemdesign.auth_service.util.JwtUtil;
 
+import io.jsonwebtoken.JwtException;
+
 @Service
 public class AuthService {
 
@@ -26,5 +28,16 @@ public class AuthService {
                             .filter(u->passwordEncoder.matches(loginRequest.getPassword(), u.getPassword()))
                             .map(u->jwtUtil.generateToken(u.getEmail(), u.getRole()));
         return token;
+    }
+
+    public boolean validateToken(String token) {
+        // Token validation logic can be added here if needed
+        // For simplicity, we assume the token is valid if it can be parsed
+        try {
+            jwtUtil.validateToken(token);
+            return true;
+        } catch (JwtException e) {
+            return false;
+        }
     }
 }
