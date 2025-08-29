@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class PatientIntegrationTest {

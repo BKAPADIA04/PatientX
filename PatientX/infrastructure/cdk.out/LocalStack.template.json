@@ -1,0 +1,740 @@
+{
+ "Resources": {
+  "PatientXVpc8FD542DA": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "PatientXVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/Resource"
+   }
+  },
+  "PatientXVpcPublicSubnet1Subnet45BFF14B": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet1/Subnet"
+   }
+  },
+  "PatientXVpcPublicSubnet1RouteTable6901B41B": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "PatientXVpcPublicSubnet1RouteTableAssociation19588A50": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PatientXVpcPublicSubnet1RouteTable6901B41B"
+    },
+    "SubnetId": {
+     "Ref": "PatientXVpcPublicSubnet1Subnet45BFF14B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "PatientXVpcPublicSubnet1DefaultRouteD47C23E8": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "PatientXVpcIGWFD6730DB"
+    },
+    "RouteTableId": {
+     "Ref": "PatientXVpcPublicSubnet1RouteTable6901B41B"
+    }
+   },
+   "DependsOn": [
+    "PatientXVpcVPCGW3E700326"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "PatientXVpcPublicSubnet1EIP492C64FF": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet1/EIP"
+   }
+  },
+  "PatientXVpcPublicSubnet1NATGatewayF01BEAA7": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "PatientXVpcPublicSubnet1EIP492C64FF",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "PatientXVpcPublicSubnet1Subnet45BFF14B"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "PatientXVpcPublicSubnet1DefaultRouteD47C23E8",
+    "PatientXVpcPublicSubnet1RouteTableAssociation19588A50"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "PatientXVpcPublicSubnet2SubnetD32B1A6E": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet2/Subnet"
+   }
+  },
+  "PatientXVpcPublicSubnet2RouteTable7764091E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "PatientXVpcPublicSubnet2RouteTableAssociation9ED2DCE2": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PatientXVpcPublicSubnet2RouteTable7764091E"
+    },
+    "SubnetId": {
+     "Ref": "PatientXVpcPublicSubnet2SubnetD32B1A6E"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "PatientXVpcPublicSubnet2DefaultRouteFA3751FA": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "PatientXVpcIGWFD6730DB"
+    },
+    "RouteTableId": {
+     "Ref": "PatientXVpcPublicSubnet2RouteTable7764091E"
+    }
+   },
+   "DependsOn": [
+    "PatientXVpcVPCGW3E700326"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "PatientXVpcPublicSubnet2EIPA365667B": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet2/EIP"
+   }
+  },
+  "PatientXVpcPublicSubnet2NATGateway9E013761": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "PatientXVpcPublicSubnet2EIPA365667B",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "PatientXVpcPublicSubnet2SubnetD32B1A6E"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "DependsOn": [
+    "PatientXVpcPublicSubnet2DefaultRouteFA3751FA",
+    "PatientXVpcPublicSubnet2RouteTableAssociation9ED2DCE2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PublicSubnet2/NATGateway"
+   }
+  },
+  "PatientXVpcPrivateSubnet1Subnet97A808B2": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "PatientXVpcPrivateSubnet1RouteTable7EDDB245": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "PatientXVpcPrivateSubnet1RouteTableAssociation3ABF5330": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PatientXVpcPrivateSubnet1RouteTable7EDDB245"
+    },
+    "SubnetId": {
+     "Ref": "PatientXVpcPrivateSubnet1Subnet97A808B2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "PatientXVpcPrivateSubnet1DefaultRouteDCC22DA8": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "PatientXVpcPublicSubnet1NATGatewayF01BEAA7"
+    },
+    "RouteTableId": {
+     "Ref": "PatientXVpcPrivateSubnet1RouteTable7EDDB245"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "PatientXVpcPrivateSubnet2Subnet477BEA54": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "PatientXVpcPrivateSubnet2RouteTable0FF98924": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/PatientXVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "PatientXVpcPrivateSubnet2RouteTableAssociationBC6020DA": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PatientXVpcPrivateSubnet2RouteTable0FF98924"
+    },
+    "SubnetId": {
+     "Ref": "PatientXVpcPrivateSubnet2Subnet477BEA54"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "PatientXVpcPrivateSubnet2DefaultRouteC329A060": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "PatientXVpcPublicSubnet2NATGateway9E013761"
+    },
+    "RouteTableId": {
+     "Ref": "PatientXVpcPrivateSubnet2RouteTable0FF98924"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "PatientXVpcIGWFD6730DB": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "PatientXVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/IGW"
+   }
+  },
+  "PatientXVpcVPCGW3E700326": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "PatientXVpcIGWFD6730DB"
+    },
+    "VpcId": {
+     "Ref": "PatientXVpc8FD542DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/PatientXVpc/VPCGW"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WOQQuCQBSEf4v3dUsJ7CoSYYdYNLzG2+1Fm7rG7lslxP8eYuhpZj6GYWIeJUceBTC4UD3qsNGSjyWBqhkM7o4q5mP1USx7mkpkTHjZaFV6aZBmtrmi84Q3kA1ufGOpc53SQLoza3k2p1zMcgU6A+EAXyas7oFwG84NoTW4FpYn/5QSgXq1aGhiBbrOW4UTu0APuyjhex4dgrfTOrTekG6RF4v+AEYXldj2AAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "LocalStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ }
+}

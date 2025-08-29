@@ -11,3 +11,5 @@ Learn System Design
 
 -> Use REST for public/external APIs (easy for clients, browsers, mobile apps).
 -> Use gRPC for internal microservices where you control both ends and need speed + streaming + strong typing.
+
+cdk synth --app "mvn exec:java -Dexec.mainClass='com.systemdesign.infrastructure.stack.LocalStack'"
